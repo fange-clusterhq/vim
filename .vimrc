@@ -1,4 +1,3 @@
-set nocompatible
 set backspace=indent,eol,start
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
@@ -10,19 +9,7 @@ endif
 if &t_Co > 2 || has("gui_running")
    syntax on
 endif
-if has("autocmd")
-   filetype plugin indent on
-   augroup vimrcEx
-      au!
-      autocmd FileType text setlocal textwidth=78
-      autocmd BufReadPost *
-               \ if line("'\"") > 1 && line("'\"") <= line("$") |
-               \   exe "normal! g`\"" |
-               \ endif
-   augroup END
-else
-   set autoindent                " always set autoindenting on
-endif " has("autocmd")
+set autoindent                " always set autoindenting on
 if !exists(":DiffOrig")
    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
             \ | wincmd p | diffthis
@@ -75,3 +62,10 @@ command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 nnoremap <F6>   m`:TrimSpaces<CR>``
 vnoremap <F6>   :TrimSpaces<CR>
 
+" auto-install vim-plug                                                                                                                
+if empty(glob('~/.config/nvim/autoload/plug.vim'))                                                                                    
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \                                                                  
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim                                                             
+  autocmd VimEnter * PlugInstall                                                                                                      
+endif                                                                                                                                 
+call plug#begin('~/.config/nvim/plugged') 
