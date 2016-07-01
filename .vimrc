@@ -66,3 +66,6 @@ vnoremap <F6>   :TrimSpaces<CR>
 call plug#begin('~/.config/nvim/plugged')
 Plug 'fatih/vim-go'
 call plug#end()
+
+" Terminal key mapping
+:tnoremap <Esc> <C-\><C-n>
